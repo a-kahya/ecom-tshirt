@@ -3,7 +3,133 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/*nav*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #0b1f4d;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  font-weight: 300;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: #0b1f4d;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+  opacity: 0.6;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/*catégories*/
+.categories {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.categorie {
+  margin-bottom: 56px;
+}
+
+.categorie-titre {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0b1f4d;
+  margin-bottom: 20px;
+}
+
+.categorie-ligne {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.articles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  flex: 1;
+}
+
+.article {
+  text-decoration: none;
+  color: inherit;
+}
+
+.article img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+}
+
+.article-prix {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.btn-voir-plus {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #0b1f4d;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-voir-plus:hover {
+  transform: scale(1.08);
+  opacity: 0.9;
+}
+
+/* mobile */
+@media (max-width: 700px) {
+  .categorie-ligne {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-voir-plus {
+    align-self: center;
+  }
 }
