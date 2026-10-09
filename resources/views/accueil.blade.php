@@ -31,23 +31,44 @@
             </ul>
         </nav>
     </header>
+</header>
+
+@if ($featured)
+    <section class="hero">
+        <div class="hero-contenu">
+            <div class="hero-texte">
+                <h1 class="hero-titre">Nouvelle tendance, nouveau vous</h1>
+                <p class="hero-sous-titre">
+                    Peau sensible ? Notre nouveau t-shirt 100% coton est fait pour vous.
+                </p>
+                <a href="#" class="hero-btn">Voir le produit</a>
+            </div>
+
+            <a href="#" class="hero-image">
+                <img src="{{ asset($featured->image) }}" alt="{{ $featured->nom }}">
+                <span class="hero-image-nom">{{ $featured->nom }}</span>
+            </a>
+        </div>
+    </section>
+@endif
+
 
     <main class="categories">
-    @foreach ($categories as $categorie)
+    @foreach ($categories as $category)
         <section class="categorie">
-            <h2 class="categorie-titre">{{ $categorie['nom'] }}</h2>
+            <h2 class="categorie-titre">{{ $category->description }}</h2>
 
             <div class="categorie-ligne">
                 <div class="articles">
-                    @foreach ($categorie['articles'] as $article)
+                    @foreach ($category->products->take(3) as $product)
                         <a href="#" class="article">
-                            <img src="{{ $article['image'] }}" alt="{{ $article['nom'] }}">
-                            <p class="article-prix">{{ number_format($article['prix'], 2, ',', ' ') }} €</p>
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->nom }}">
+                            <p class="article-prix">{{ number_format($product->prix, 2, ',', ' ') }} €</p>
                         </a>
                     @endforeach
                 </div>
 
-                <a href="#" class="btn-voir-plus">Voir plus +</a>
+                <a href="{{ route('categorie.show', $category) }}" class="btn-voir-plus">Voir plus </a>
             </div>
         </section>
     @endforeach
