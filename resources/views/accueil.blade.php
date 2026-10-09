@@ -73,5 +73,36 @@
         </section>
     @endforeach
 </main>
+
+<footer class="footer">
+    <div class="footer-contenu">
+        <div class="footer-marque">
+            <a href="#" class="footer-logo">Tee<span>Shop</span></a>
+            <p class="footer-slogan">Nouvelle tendance, nouveau vous.</p>
+        </div>
+
+        <nav class="footer-colonne">
+            <h3 class="footer-titre">Boutique</h3>
+            <ul>
+                <li><a href="#">Homme</a></li>
+                <li><a href="#">Femme</a></li>
+                <li><a href="#">Enfants</a></li>
+            </ul>
+        </nav>
+
+        <div class="footer-colonne">
+            <h3 class="footer-titre">Contact</h3>
+            <address class="footer-adresse">
+                <a href="mailto:contact@teeshop.example">contact@teeshop.example</a>
+                <span>12 rue des Tisserands</span>
+                <span>1000 Bruxelles, Belgique</span>
+            </address>
+        </div>
+    </div>
+
+    <div class="footer-bas">
+        <p>© {{ date('Y') }} TeeShop. Tous droits réservés.</p>
+    </div>
+</footer>
 </body>
 </html>
