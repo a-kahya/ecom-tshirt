@@ -10,15 +10,15 @@
 <body>
 
     <header class="navbar">
-        <a href="#" class="logo">Tee<span>Shop</span></a>
+        <a href="{{ route('accueil') }}" class="logo">Tee<span>Shop</span></a>
 
         <nav>
             <ul class="nav-links">
-                <li><a href="#">Homme</a></li>
-                <li><a href="#">Femme</a></li>
-                <li><a href="#">Enfants</a></li>
+                @foreach ($categories as $category)
+                    <li><a href="{{ route('categorie', $category) }}">{{ $category->description }}</a></li>
+                @endforeach
                 <li>
-                    <a href="#" class="cart">
+                    <a href="{{ route('panier') }}" class="cart">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="9" cy="21" r="1"></circle>
@@ -31,7 +31,6 @@
             </ul>
         </nav>
     </header>
-</header>
 
 @if ($featured)
     <section class="hero">
@@ -41,10 +40,10 @@
                 <p class="hero-sous-titre">
                     Peau sensible ? Notre nouveau t-shirt 100% coton est fait pour vous.
                 </p>
-                <a href="#" class="hero-btn">Voir le produit</a>
+                <a href="{{ route('produit', $featured) }}" class="hero-btn">Voir le produit</a>
             </div>
 
-            <a href="#" class="hero-image">
+            <a href="{{ route('produit', $featured) }}" class="hero-image">
                 <img src="{{ asset($featured->image) }}" alt="{{ $featured->nom }}">
                 <span class="hero-image-nom">{{ $featured->nom }}</span>
             </a>
@@ -52,9 +51,9 @@
     </section>
 @endif
 
-
     <main class="categories">
     @foreach ($categories as $category)
+        @if ($category->products->isNotEmpty())
         <section class="categorie">
             <h2 class="categorie-titre">{{ $category->description }}</h2>
 
@@ -68,25 +67,26 @@
                     @endforeach
                 </div>
 
-                <a href="{{ route('categorie.show', $category) }}" class="btn-voir-plus">Voir plus </a>
+                <a href="{{ route('categorie', $category) }}" class="btn-voir-plus">Voir plus </a>
             </div>
         </section>
+        @endif
     @endforeach
 </main>
 
 <footer class="footer">
     <div class="footer-contenu">
         <div class="footer-marque">
-            <a href="#" class="footer-logo">Tee<span>Shop</span></a>
+            <a href="{{ route('accueil') }}" class="footer-logo">Tee<span>Shop</span></a>
             <p class="footer-slogan">Nouvelle tendance, nouveau vous.</p>
         </div>
 
         <nav class="footer-colonne">
             <h3 class="footer-titre">Boutique</h3>
             <ul>
-                <li><a href="#">Homme</a></li>
-                <li><a href="#">Femme</a></li>
-                <li><a href="#">Enfants</a></li>
+                @foreach ($categories as $category)
+                    <li><a href="{{ route('categorie', $category) }}">{{ $category->description }}</a></li>
+                @endforeach
             </ul>
         </nav>
 
