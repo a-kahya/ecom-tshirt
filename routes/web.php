@@ -1,16 +1,37 @@
-
 <?php
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryProductController;
 
 // Page d'accueil (US1)
 Route::get('/', function () {
-    return view('welcome');
-});
+    $categories = Category::with('products')->get();
+    $featured = Product::where('category_id', 1)
+        ->orderBy('id')
+        ->first();
 
-// Catalogue des produits par catégorie (US2)
+    return view('accueil', compact('categories', 'featured'));
+})->name('accueil');
+
+
+// Liste des produits d'une catégorie (US2 - ta partie)
 Route::get(
-    '/categories/{category}/products',
+    '/categorie/{category}',
     [CategoryProductController::class, 'index']
-)->name('categories.products.index');
+)->name('categorie');
+
+
+// Panier
+Route::get('/panier', function () {
+    return view('panier');
+})->name('panier');
+
+
+// Détail d'un produit (US3)
+Route::get('/produit/{product}', function (Product $product) {
+    return view('produit', [
+        'product' => $product->load('category')
+    ]);
+})->name('produit');
