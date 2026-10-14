@@ -60,7 +60,7 @@
             <div class="categorie-ligne">
                 <div class="articles">
                     @foreach ($category->products->take(3) as $product)
-                        <a href="#" class="article">
+                        <a href="{{ route('produit', $product) }}" class="article">
                             <img src="{{ asset($product->image) }}" alt="{{ $product->nom }}">
                             <p class="article-prix">{{ number_format($product->prix, 2, ',', ' ') }} €</p>
                         </a>
