@@ -1,166 +1,199 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{{ $category->name }} - Ecom T-Shirt</title>
+    <title>{{ $category->description }} - TeeShop</title>
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            margin: 0;
-            background: #f8f8f8;
-            color: #222;
-            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #111827;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 24px;
+        .hero-categorie .hero-contenu {
+            padding: 40px 24px;
         }
 
-        .back-link {
-            color: #555;
+        .hero-categorie .hero-sous-titre {
+            margin-bottom: 0;
+        }
+
+        .retour {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #0b1f4d;
+            font-weight: 500;
             text-decoration: none;
+            transition: opacity 0.2s;
         }
 
-        h1 {
-            margin-top: 30px;
-            font-size: 32px;
+        .retour:hover {
+            opacity: 0.6;
         }
 
-        .product-grid {
+        .grille-articles {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fill,
-                minmax(230px, 1fr)
-            );
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 24px;
-            margin-top: 35px;
         }
 
-        .product-card {
+        .article-image {
             position: relative;
             display: block;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: transform .2s;
         }
 
-        .product-card:hover,
-        .product-card:focus-visible {
-            transform: translateY(-5px);
-        }
-
-        .product-card img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            display: block;
-        }
-
-        .tooltip {
+        /* nom du produit en infobulle au survol de l'image */
+        .article-nom {
             position: absolute;
-            bottom: 12px;
             left: 50%;
-            transform: translateX(-50%);
-            background: #222;
-            color: white;
-            padding: 9px 14px;
-            border-radius: 5px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity .2s;
-            pointer-events: none;
+            bottom: 12px;
+            max-width: 90%;
+            transform: translate(-50%, 8px);
+            padding: 8px 18px;
+            background-color: #0b1f4d;
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 600;
             white-space: nowrap;
-            max-width: 95%;
             overflow: hidden;
             text-overflow: ellipsis;
+            border-radius: 999px;
+            opacity: 0;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
         }
 
-        .product-card:hover .tooltip,
-        .product-card:focus-visible .tooltip {
+        .article:hover .article-nom,
+        .article:focus-visible .article-nom {
             opacity: 1;
+            transform: translate(-50%, 0);
         }
 
-        .empty {
-            margin-top: 40px;
-            padding: 40px;
+        @media (hover: none) {
+            .article-nom {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .aucun-produit {
+            padding: 48px 24px;
             text-align: center;
-            background: white;
-            border-radius: 10px;
+            background-color: #e6ecfa;
+            border-radius: 24px;
+            color: #0b1f4d;
+        }
+
+        .aucun-produit h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .aucun-produit p {
+            color: #4b5563;
         }
     </style>
 </head>
-
 <body>
 
-<main class="container">
+    <header class="navbar">
+        <a href="{{ route('accueil') }}" class="logo">Tee<span>Shop</span></a>
 
-    <a href="{{ url('/') }}" class="back-link">
-        ← Retour aux catégories
-    </a>
+        <nav>
+            <ul class="nav-links">
+                @foreach ($categories as $cat)
+                    <li><a href="{{ route('categorie', $cat) }}">{{ $cat->description }}</a></li>
+                @endforeach
+                <li>
+                    <a href="{{ route('panier') }}" class="cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"></path>
+                        </svg>
+                        Panier
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-    <h1>{{ $category->name }}</h1>
-
-    <p>
-        {{ $products->count() }}
-        produit(s) disponible(s)
-    </p>
-
-    @if($products->isEmpty())
-
-        <div class="empty">
-            <h2>Aucun produit disponible</h2>
-            <p>
-                Aucun produit n'est actuellement
-                associé à cette catégorie.
-            </p>
+    <section class="hero hero-categorie">
+        <div class="hero-contenu">
+            <div class="hero-texte">
+                <h1 class="hero-titre">{{ $category->description }}</h1>
+                <p class="hero-sous-titre">
+                    {{ $products->count() }} produit(s) disponible(s)
+                </p>
+            </div>
         </div>
+    </section>
 
-    @else
+    <main class="categories">
+        <a href="{{ route('accueil') }}" class="retour">← Retour à l'accueil</a>
 
-        <div class="product-grid">
-
-            @foreach($products as $product)
-
-                <a
-                    href="{{ url('/products/' . $product->id) }}"
-                    class="product-card"
-                    title="{{ $product->name }}"
-                    aria-label="Voir les détails de {{ $product->name }}"
-                >
-
-                    <img
-                        src="{{ $product->image
-                            ? asset('storage/' . $product->image)
-                            : asset('images/placeholder.png') }}"
-                        alt="{{ $product->name }}"
-                        loading="lazy"
+        @if ($products->isEmpty())
+            <div class="aucun-produit">
+                <h2>Aucun produit disponible</h2>
+                <p>Aucun produit n'est actuellement associé à cette catégorie.</p>
+            </div>
+        @else
+            <div class="grille-articles">
+                @foreach ($products as $product)
+                    <a
+                        href="{{ route('produit', $product) }}"
+                        class="article"
+                        title="{{ $product->nom }}"
+                        aria-label="Voir les détails de {{ $product->nom }}"
                     >
+                        <span class="article-image">
+                            <img
+                                src="{{ $product->image ? asset($product->image) : asset('images/placeholder.png') }}"
+                                alt="{{ $product->nom }}"
+                            >
+                            <span class="article-nom">{{ $product->nom }}</span>
+                        </span>
+                        <p class="article-prix">{{ number_format($product->prix, 2, ',', ' ') }} €</p>
+                    </a>
+                @endforeach
+            </div>
+        @endif
+    </main>
 
-                    <span class="tooltip">
-                        {{ $product->name }}
-                    </span>
+    <footer class="footer">
+        <div class="footer-contenu">
+            <div class="footer-marque">
+                <a href="{{ route('accueil') }}" class="footer-logo">Tee<span>Shop</span></a>
+                <p class="footer-slogan">Nouvelle tendance, nouveau vous.</p>
+            </div>
 
-                </a>
+            <nav class="footer-colonne">
+                <h3 class="footer-titre">Boutique</h3>
+                <ul>
+                    @foreach ($categories as $cat)
+                        <li><a href="{{ route('categorie', $cat) }}">{{ $cat->description }}</a></li>
+                    @endforeach
+                </ul>
+            </nav>
 
-            @endforeach
-
+            <div class="footer-colonne">
+                <h3 class="footer-titre">Contact</h3>
+                <address class="footer-adresse">
+                    <a href="mailto:contact@teeshop.example">contact@teeshop.example</a>
+                    <span>12 rue des Tisserands</span>
+                    <span>1000 Bruxelles, Belgique</span>
+                </address>
+            </div>
         </div>
 
-    @endif
-
-</main>
-
+        <div class="footer-bas">
+            <p>© {{ date('Y') }} TeeShop. Tous droits réservés.</p>
+        </div>
+    </footer>
 </body>
 </html>

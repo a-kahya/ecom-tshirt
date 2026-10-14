@@ -14,6 +14,7 @@ class CategoryProductController extends Controller
         return view('products.index', [
             'category' => $category,
             'products' => $products,
+            'categories' => Category::all(),
         ]);
     }
 }
