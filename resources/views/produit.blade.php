@@ -232,8 +232,10 @@
         </div>
 
         <div class="footer-bas">
+            @include('partials.footer-legal')
             <p>© {{ date('Y') }} TeeShop. Tous droits réservés.</p>
         </div>
     </footer>
+    @include('partials.cookie-banner')
 </body>
 </html>
