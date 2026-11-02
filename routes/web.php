@@ -36,3 +36,10 @@ Route::get('/produit/{product}', function (Product $product) {
         'categories' => Category::all(),
     ]);
 })->name('produit');
+
+// Obligations légales : RGPD, CGV, cookies
+Route::controller(App\Http\Controllers\LegalController::class)->group(function () {
+    Route::get('/confidentialite', 'confidentialite')->name('legal.confidentialite');
+    Route::get('/conditions-generales-de-vente', 'cgv')->name('legal.cgv');
+    Route::get('/cookies', 'cookies')->name('legal.cookies');
+});
