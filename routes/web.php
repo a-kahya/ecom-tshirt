@@ -32,6 +32,7 @@ Route::get('/panier', function () {
 // Détail d'un produit (US3)
 Route::get('/produit/{product}', function (Product $product) {
     return view('produit', [
-        'product' => $product->load('category')
+        'product' => $product->load('category'),
+        'categories' => Category::all(),
     ]);
 })->name('produit');
