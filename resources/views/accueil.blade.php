@@ -17,6 +17,7 @@
                 @foreach ($categories as $category)
                     <li><a href="{{ route('categorie', $category) }}">{{ $category->description }}</a></li>
                 @endforeach
+                @include('partials.compte')
                 <li>
                     <a href="{{ route('panier') }}" class="cart">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
