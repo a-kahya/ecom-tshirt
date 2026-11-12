@@ -47,6 +47,7 @@
 
             <button type="submit" class="cookie-btn cookie-btn-accept connexion-btn">Se connecter</button>
         </form>
+        <p class="connexion-alt">Pas encore de compte ? <a href="{{ route('inscription') }}">S'inscrire</a></p>
     </main>
 
     <footer class="footer">

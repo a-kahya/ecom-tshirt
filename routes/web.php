@@ -49,5 +49,11 @@ Route::controller(App\Http\Controllers\LegalController::class)->group(function (
 Route::controller(App\Http\Controllers\AuthController::class)->group(function () {
     Route::get('/connexion', 'showLogin')->name('connexion');
     Route::post('/connexion', 'login')->name('connexion.envoyer');
-    Route::post('/deconnexion', 'logout')->name('deconnexion');
+});
+
+
+// Inscription (US5)
+Route::controller(App\Http\Controllers\InscriptionController::class)->group(function () {
+    Route::get('/inscription', 'show')->name('inscription');
+    Route::post('/inscription', 'store')->name('inscription.envoyer');
 });

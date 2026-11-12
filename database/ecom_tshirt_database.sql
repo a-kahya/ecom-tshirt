@@ -185,6 +185,9 @@ CREATE TABLE `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `prenom` varchar(255) NOT NULL DEFAULT '',
+  `adresse` varchar(255) NOT NULL DEFAULT '',
+  `code_postal` varchar(10) NOT NULL DEFAULT '',
+  `ville` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -199,7 +202,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 -- Compte de test (US4) : test@example.com / password
-INSERT INTO `users` VALUES (1,'Dupont','Alex','test@example.com','2026-10-02 06:40:31','$2y$12$8uWV8FLbjudD7rrWWC9hxu1AzVA.7Sb0uKOZpVruh9H1CoTgrOJzW','nvGoWyW5zf','2026-10-02 06:40:31','2026-10-02 06:40:31');
+INSERT INTO `users` VALUES (1,'Dupont','Alex','12 rue des Fleurs','1000','Bruxelles','test@example.com','2026-10-02 06:40:31','$2y$12$8uWV8FLbjudD7rrWWC9hxu1AzVA.7Sb0uKOZpVruh9H1CoTgrOJzW','nvGoWyW5zf','2026-10-02 06:40:31','2026-10-02 06:40:31');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
