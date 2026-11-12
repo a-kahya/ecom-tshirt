@@ -43,3 +43,11 @@ Route::controller(App\Http\Controllers\LegalController::class)->group(function (
     Route::get('/conditions-generales-de-vente', 'cgv')->name('legal.cgv');
     Route::get('/cookies', 'cookies')->name('legal.cookies');
 });
+
+
+// Connexion (US4)
+Route::controller(App\Http\Controllers\AuthController::class)->group(function () {
+    Route::get('/connexion', 'showLogin')->name('connexion');
+    Route::post('/connexion', 'login')->name('connexion.envoyer');
+    Route::post('/deconnexion', 'logout')->name('deconnexion');
+});

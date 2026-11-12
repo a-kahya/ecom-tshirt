@@ -17,6 +17,7 @@
                 @foreach ($categories as $category)
                     <li><a href="{{ route('categorie', $category) }}">{{ $category->description }}</a></li>
                 @endforeach
+                @include('partials.compte')
                 <li><a href="{{ route('panier') }}" class="cart">Panier</a></li>
             </ul>
         </nav>

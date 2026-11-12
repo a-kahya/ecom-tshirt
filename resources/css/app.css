@@ -576,3 +576,65 @@
   list-style: decimal;
   padding-left: 24px;
 }
+
+/* connexion et compte (US4) */
+.compte {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.compte-bienvenue {
+  font-weight: 600;
+  color: #0b1f4d;
+}
+
+.compte-form {
+  margin: 0;
+}
+
+.compte-lien {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0b1f4d;
+}
+
+.connexion {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 0 24px;
+  color: #1f2937;
+}
+
+.connexion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.connexion-form label {
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.connexion-form input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+.connexion-btn {
+  margin-top: 16px;
+}
+
+.connexion-erreur {
+  color: #b91c1c;
+  font-size: 0.9rem;
+  margin: 0;
+}
