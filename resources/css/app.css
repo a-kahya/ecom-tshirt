@@ -558,3 +558,21 @@
   color: #b45309;
   font-style: italic;
 }
+
+/* encadré « En bref » des pages légales */
+.legal-resume {
+  background-color: #e8edf7;
+  border-left: 4px solid #0b1f4d;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.legal-resume p {
+  margin: 4px 0 0;
+}
+
+.legal ol {
+  list-style: decimal;
+  padding-left: 24px;
+}
