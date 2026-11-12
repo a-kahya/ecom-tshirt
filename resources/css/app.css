@@ -638,3 +638,60 @@
   font-size: 0.9rem;
   margin: 0;
 }
+
+/* lien croisé connexion / inscription (US5) */
+.connexion-alt {
+  margin-top: 16px;
+}
+
+.connexion-alt a {
+  color: #0b1f4d;
+  text-decoration: underline;
+}
+
+.connexion-aide {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* indicateur de force du mot de passe */
+.meter {
+  margin: 0;
+}
+
+.meter[hidden] {
+  display: none;
+}
+
+.meter-piste {
+  height: 6px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.meter-barre {
+  height: 100%;
+  width: 0;
+  transition: width 0.2s, background-color 0.2s;
+}
+
+.meter-faible { background-color: #dc2626; }
+.meter-moyen { background-color: #f59e0b; }
+.meter-bon { background-color: #84cc16; }
+.meter-fort { background-color: #16a34a; }
+
+.meter-texte {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 4px 0 0;
+}
+
+.connexion-erreur-general {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
