@@ -38,4 +38,20 @@ class AuthController extends Controller
 
         return redirect()->intended(route('accueil'));
     }
+
+    // Déconnexion (US7) : appelée en POST depuis le bouton de la nav
+    public function logout(Request $request): RedirectResponse
+    {
+        // 1. Retire l'utilisateur connecté : il redevient "invité"
+        Auth::logout();
+
+        // 2. Détruit la session : plus aucune donnée de l'ancien utilisateur n'y reste
+        $request->session()->invalidate();
+
+        // 3. Génère un nouveau jeton CSRF : l'ancien formulaire ne peut plus être réutilisé
+        $request->session()->regenerateToken();
+
+        // 4. Retour à la page d'accueil
+        return redirect()->route('accueil');
+    }
 }

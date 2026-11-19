@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Un visiteur non connecté qui tape /profil est renvoyé vers le formulaire de connexion
+        $middleware->redirectGuestsTo(fn () => route('connexion'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Formulaire resté ouvert trop longtemps (erreur 419) : message clair au lieu de la page d'erreur

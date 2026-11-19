@@ -695,3 +695,13 @@
   padding: 10px 12px;
   margin-bottom: 8px;
 }
+
+/* message de succès après la mise à jour du profil (US6) */
+.profil-succes {
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  color: #166534;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
