@@ -4,6 +4,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryProductController;
+use App\Http\Controllers\ProfilController;
 
 // Page d'accueil (US1)
 Route::get('/', function () {
@@ -16,7 +17,7 @@ Route::get('/', function () {
 })->name('accueil');
 
 
-// Liste des produits d'une catégorie (US2 - ta partie)
+// Liste des produits d'une catégorie (US2)
 Route::get(
     '/categorie/{category}',
     [CategoryProductController::class, 'index']
@@ -45,10 +46,13 @@ Route::controller(App\Http\Controllers\LegalController::class)->group(function (
 });
 
 
-// Connexion (US4)
+// Connexion (US4) et déconnexion (US7)
 Route::controller(App\Http\Controllers\AuthController::class)->group(function () {
     Route::get('/connexion', 'showLogin')->name('connexion');
     Route::post('/connexion', 'login')->name('connexion.envoyer');
+
+    // Déconnexion : en POST (et pas en GET) pour qu'un lien extérieur ne puisse pas déconnecter l'utilisateur
+    Route::post('/deconnexion', 'logout')->name('deconnexion');
 });
 
 
@@ -57,3 +61,12 @@ Route::controller(App\Http\Controllers\InscriptionController::class)->group(func
     Route::get('/inscription', 'show')->name('inscription');
     Route::post('/inscription', 'store')->name('inscription.envoyer');
 });
+
+// Profil (US6) : réservé aux membres connectés, grâce au middleware "auth"
+Route::middleware('auth')
+    ->controller(App\Http\Controllers\ProfilController::class)
+    ->group(function () {
+        Route::get('/profil', 'show')->name('profil');
+        // PUT = mise à jour d'une ressource existante (le formulaire l'envoie avec @method('PUT'))
+        Route::put('/profil', 'update')->name('profil.envoyer');
+    });
