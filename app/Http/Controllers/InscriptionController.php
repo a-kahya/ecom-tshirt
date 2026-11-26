@@ -41,8 +41,8 @@ class InscriptionController extends Controller
             'ville' => ['required', 'string', 'max:255', "regex:/^\p{L}[\p{L}\s'’.-]*$/u"],
             // e-mail : format valide avec une extension (.com, .be, .fr, …), unique
             'email' => ['required', 'email', 'regex:/^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/', 'max:255', 'unique:users,email'],
-            // mot de passe : au moins une majuscule, un chiffre et un caractère spécial
-            'password' => ['required', 'string', 'regex:/^(?=.*\p{Lu})(?=.*\d)(?=.*[^\p{L}\d\s]).+$/u'],
+            // mot de passe : 8 caractères minimum, avec une majuscule, un chiffre et un caractère spécial
+            'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*\p{Lu})(?=.*\d)(?=.*[^\p{L}\d\s]).+$/u'],
         ], [
             'nom.required' => 'Le nom est obligatoire.',
             'nom.regex' => 'Le nom ne doit pas contenir de chiffres.',
@@ -60,6 +60,7 @@ class InscriptionController extends Controller
             'email.regex' => "L'adresse e-mail n'est pas valide (exemple : nom@domaine.com).",
             'email.unique' => 'Cette adresse e-mail est déjà utilisée.',
             'password.required' => 'Le mot de passe est obligatoire.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
             'password.regex' => 'Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.',
             '*.max' => 'Cette valeur est trop longue.',
         ]);

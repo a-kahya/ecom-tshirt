@@ -25,28 +25,51 @@ class ProfilController extends Controller
         // Le membre connecté : on ne modifie JAMAIS un autre compte que le sien
         $user = $request->user();
 
+        // Mêmes règles que l'inscription (US5)
         $donnees = $request->validate([
-            'name' => ['required', 'string', 'max:255'],        // nom de famille
-            'prenom' => ['required', 'string', 'max:255'],
-            'adresse' => ['required', 'string', 'max:255'],
-            'code_postal' => ['required', 'string', 'max:10'],
-            'ville' => ['required', 'string', 'max:255'],
-            // unique, mais en ignorant la ligne du membre lui-même (sinon son propre courriel serait refusé)
-            'email' => ['required', 'email', Rule::unique(User::class)->ignore($user->id)],
-            // Mot de passe facultatif : on ne le change que s'il est rempli
-            'password' => ['nullable', 'min:8', 'confirmed'],
+            // nom (colonne "name"), prénom et ville : des lettres (espaces, tirets, apostrophes et points permis), pas de chiffres
+            'name' => ['required', 'string', 'max:255', "regex:/^\p{L}[\p{L}\s'’.-]*$/u"],
+            'prenom' => ['required', 'string', 'max:255', "regex:/^\p{L}[\p{L}\s'’.-]*$/u"],
+            // adresse : un nom de rue ET un numéro (maison ou boîte) ; pas uniquement des chiffres
+            'adresse' => [
+                'required', 'string', 'max:255',
+                "regex:/^[\p{L}\p{N}\s'’.,\/°-]+$/u",
+                'not_regex:/^[\d\s,.\/°-]+$/u',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    if (! preg_match('/\d/', $value)) {
+                        $fail("L'adresse doit contenir un numéro (maison ou boîte).");
+                    }
+                },
+            ],
+            // code postal : un nombre à 4 chiffres (Belgique)
+            'code_postal' => ['required', 'regex:/^\d{4}$/'],
+            'ville' => ['required', 'string', 'max:255', "regex:/^\p{L}[\p{L}\s'’.-]*$/u"],
+            // e-mail : format valide avec une extension, unique, mais en ignorant la ligne du membre lui-même
+            // (sinon son propre courriel serait refusé)
+            'email' => ['required', 'email', 'regex:/^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            // Mot de passe facultatif : on ne le change que s'il est rempli, avec la même règle qu'à l'inscription
+            'password' => ['nullable', 'min:8', 'confirmed', 'regex:/^(?=.*\p{Lu})(?=.*\d)(?=.*[^\p{L}\d\s]).+$/u'],
         ], [
             'name.required' => 'Le nom est obligatoire.',
+            'name.regex' => 'Le nom ne doit pas contenir de chiffres.',
             'prenom.required' => 'Le prénom est obligatoire.',
+            'prenom.regex' => 'Le prénom ne doit pas contenir de chiffres.',
             'adresse.required' => "L'adresse est obligatoire.",
+            'adresse.regex' => "L'adresse contient des caractères non autorisés.",
+            'adresse.not_regex' => "L'adresse doit contenir le nom de la rue, pas uniquement des chiffres.",
             'code_postal.required' => 'Le code postal est obligatoire.',
+            'code_postal.regex' => 'Le code postal doit être un nombre à 4 chiffres.',
             'ville.required' => 'La ville est obligatoire.',
+            'ville.regex' => 'La ville ne doit pas contenir de chiffres.',
             'email.required' => "L'adresse e-mail est obligatoire.",
             'email.email' => "L'adresse e-mail n'est pas valide.",
+            'email.regex' => "L'adresse e-mail n'est pas valide (exemple : nom@domaine.com).",
             // Critère d'acceptation : deux utilisateurs ne peuvent pas avoir le même courriel
             'email.unique' => 'Cette adresse e-mail est déjà utilisée par un autre compte.',
             'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
             'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
+            'password.regex' => 'Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.',
+            '*.max' => 'Cette valeur est trop longue.',
         ]);
 
         // Assignation champ par champ : fonctionne même sans propriété $fillable dans le modèle
