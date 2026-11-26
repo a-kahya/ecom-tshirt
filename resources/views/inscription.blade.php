@@ -58,7 +58,7 @@
                 <div class="meter-piste"><div class="meter-barre"></div></div>
                 <p class="meter-texte"></p>
             </div>
-            <p class="connexion-aide">Au moins une majuscule, un chiffre et un caractère spécial.</p>
+            <p class="connexion-aide">Au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.</p>
             @error('password')
                 <p class="connexion-erreur" role="alert">{{ $message }}</p>
             @enderror

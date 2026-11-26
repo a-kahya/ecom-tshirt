@@ -63,7 +63,7 @@
             @enderror
 
             <label for="code_postal">Code postal</label>
-            <input type="text" id="code_postal" name="code_postal" value="{{ old('code_postal', auth()->user()->code_postal) }}" autocomplete="postal-code">
+            <input type="text" id="code_postal" name="code_postal" value="{{ old('code_postal', auth()->user()->code_postal) }}" autocomplete="postal-code" inputmode="numeric" maxlength="4">
             @error('code_postal')
                 <p class="connexion-erreur" role="alert">{{ $message }}</p>
             @enderror
@@ -83,7 +83,7 @@
             {{-- Le mot de passe n'est jamais pré-rempli, et reste inchangé si on laisse les champs vides --}}
             <label for="password">Nouveau mot de passe</label>
             <input type="password" id="password" name="password" autocomplete="new-password">
-            <p class="connexion-aide">Laissez vide pour conserver votre mot de passe actuel.</p>
+            <p class="connexion-aide">Laissez vide pour conserver votre mot de passe actuel. Sinon : au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.</p>
             @error('password')
                 <p class="connexion-erreur" role="alert">{{ $message }}</p>
             @enderror
